@@ -1,0 +1,190 @@
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 33
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydata             |
+| mydb               |
+| mysql              |
+| mywork             |
+| nit                |
+| performance_schema |
+| sys                |
++--------------------+
+8 rows in set (0.01 sec)
+
+mysql> use mywork;
+Database changed
+mysql> desc customers;
++---------+---------------+------+-----+---------+----------------+
+| Field   | Type          | Null | Key | Default | Extra          |
++---------+---------------+------+-----+---------+----------------+
+| ID      | int           | NO   | PRI | NULL    | auto_increment |
+| NAME    | varchar(50)   | NO   |     | NULL    |                |
+| AGE     | int           | NO   |     | NULL    |                |
+| ADDRESS | varchar(100)  | YES  |     | NULL    |                |
+| SALARY  | decimal(10,2) | YES  |     | NULL    |                |
++---------+---------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from customers;
++----+----------+-----+-----------+----------+
+| ID | NAME     | AGE | ADDRESS   | SALARY   |
++----+----------+-----+-----------+----------+
+|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |  25 | Delhi     |  1500.00 |
+|  3 | Kaushik  |  23 | Kota      |  2000.00 |
+|  4 | Chaitali |  25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |  27 | Bhopal    |  8500.00 |
+|  6 | Komal    |  22 | MP        |  4500.00 |
+|  7 | Muffy    |  24 | Indore    | 10000.00 |
++----+----------+-----+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where > 5000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> 5000' at line 1
+mysql> select * from customers where salary > 5000;
++----+----------+-----+---------+----------+
+| ID | NAME     | AGE | ADDRESS | SALARY   |
++----+----------+-----+---------+----------+
+|  4 | Chaitali |  25 | Mumbai  |  6500.00 |
+|  5 | Hardik   |  27 | Bhopal  |  8500.00 |
+|  7 | Muffy    |  24 | Indore  | 10000.00 |
++----+----------+-----+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers where salary < 5000;
++----+---------+-----+-----------+---------+
+| ID | NAME    | AGE | ADDRESS   | SALARY  |
++----+---------+-----+-----------+---------+
+|  1 | Ramesh  |  32 | Ahmedabad | 2000.00 |
+|  2 | Khilan  |  25 | Delhi     | 1500.00 |
+|  3 | Kaushik |  23 | Kota      | 2000.00 |
+|  6 | Komal   |  22 | MP        | 4500.00 |
++----+---------+-----+-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customers where salary = 2000;
++----+---------+-----+-----------+---------+
+| ID | NAME    | AGE | ADDRESS   | SALARY  |
++----+---------+-----+-----------+---------+
+|  1 | Ramesh  |  32 | Ahmedabad | 2000.00 |
+|  3 | Kaushik |  23 | Kota      | 2000.00 |
++----+---------+-----+-----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customers where salary != 2000;
++----+----------+-----+---------+----------+
+| ID | NAME     | AGE | ADDRESS | SALARY   |
++----+----------+-----+---------+----------+
+|  2 | Khilan   |  25 | Delhi   |  1500.00 |
+|  4 | Chaitali |  25 | Mumbai  |  6500.00 |
+|  5 | Hardik   |  27 | Bhopal  |  8500.00 |
+|  6 | Komal    |  22 | MP      |  4500.00 |
+|  7 | Muffy    |  24 | Indore  | 10000.00 |
++----+----------+-----+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers where salary <> 2000;
++----+----------+-----+---------+----------+
+| ID | NAME     | AGE | ADDRESS | SALARY   |
++----+----------+-----+---------+----------+
+|  2 | Khilan   |  25 | Delhi   |  1500.00 |
+|  4 | Chaitali |  25 | Mumbai  |  6500.00 |
+|  5 | Hardik   |  27 | Bhopal  |  8500.00 |
+|  6 | Komal    |  22 | MP      |  4500.00 |
+|  7 | Muffy    |  24 | Indore  | 10000.00 |
++----+----------+-----+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers where salary >= 6500;
++----+----------+-----+---------+----------+
+| ID | NAME     | AGE | ADDRESS | SALARY   |
++----+----------+-----+---------+----------+
+|  4 | Chaitali |  25 | Mumbai  |  6500.00 |
+|  5 | Hardik   |  27 | Bhopal  |  8500.00 |
+|  7 | Muffy    |  24 | Indore  | 10000.00 |
++----+----------+-----+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers;
++----+----------+-----+-----------+----------+
+| ID | NAME     | AGE | ADDRESS   | SALARY   |
++----+----------+-----+-----------+----------+
+|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |  25 | Delhi     |  1500.00 |
+|  3 | Kaushik  |  23 | Kota      |  2000.00 |
+|  4 | Chaitali |  25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |  27 | Bhopal    |  8500.00 |
+|  6 | Komal    |  22 | MP        |  4500.00 |
+|  7 | Muffy    |  24 | Indore    | 10000.00 |
++----+----------+-----+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where age >= 25 and salary >= 6500;
++----+----------+-----+---------+---------+
+| ID | NAME     | AGE | ADDRESS | SALARY  |
++----+----------+-----+---------+---------+
+|  4 | Chaitali |  25 | Mumbai  | 6500.00 |
+|  5 | Hardik   |  27 | Bhopal  | 8500.00 |
++----+----------+-----+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customers where age >= 25 or salary >= 6500;
++----+----------+-----+-----------+----------+
+| ID | NAME     | AGE | ADDRESS   | SALARY   |
++----+----------+-----+-----------+----------+
+|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |  25 | Delhi     |  1500.00 |
+|  4 | Chaitali |  25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |  27 | Bhopal    |  8500.00 |
+|  7 | Muffy    |  24 | Indore    | 10000.00 |
++----+----------+-----+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers where age is NOT NULL;
++----+----------+-----+-----------+----------+
+| ID | NAME     | AGE | ADDRESS   | SALARY   |
++----+----------+-----+-----------+----------+
+|  1 | Ramesh   |  32 | Ahmedabad |  2000.00 |
+|  2 | Khilan   |  25 | Delhi     |  1500.00 |
+|  3 | Kaushik  |  23 | Kota      |  2000.00 |
+|  4 | Chaitali |  25 | Mumbai    |  6500.00 |
+|  5 | Hardik   |  27 | Bhopal    |  8500.00 |
+|  6 | Komal    |  22 | MP        |  4500.00 |
+|  7 | Muffy    |  24 | Indore    | 10000.00 |
++----+----------+-----+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where name like 'Ko%';
++----+-------+-----+---------+---------+
+| ID | NAME  | AGE | ADDRESS | SALARY  |
++----+-------+-----+---------+---------+
+|  6 | Komal |  22 | MP      | 4500.00 |
++----+-------+-----+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customers where age in (25, 27 );
++----+----------+-----+---------+---------+
+| ID | NAME     | AGE | ADDRESS | SALARY  |
++----+----------+-----+---------+---------+
+|  2 | Khilan   |  25 | Delhi   | 1500.00 |
+|  4 | Chaitali |  25 | Mumbai  | 6500.00 |
+|  5 | Hardik   |  27 | Bhopal  | 8500.00 |
++----+----------+-----+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql>

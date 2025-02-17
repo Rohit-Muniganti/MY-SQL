@@ -1,0 +1,204 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydata             |
+| mydb               |
+| mysql              |
+| mywork             |
+| nit                |
+| performance_schema |
+| sys                |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> create database splcommand;
+Query OK, 1 row affected (0.38 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydata             |
+| mydb               |
+| mysql              |
+| mywork             |
+| nit                |
+| performance_schema |
+| splcommand         |
+| sys                |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use splcommand;
+Database changed
+mysql> create table student2(name varchaar(30), roll_no int not null primary key, marks int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchaar(30), roll_no int not null primary key, marks int)' at line 1
+mysql> create table student2(name varchar(30), roll_no int not null primary key, marks int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc student2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| roll_no | int         | NO   | PRI | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table student2 add address varchar(50);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| roll_no | int         | NO   | PRI | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student2 drop marks;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| roll_no | int         | NO   | PRI | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> alter table student2 modify name varchar(50);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(50) | YES  |     | NULL    |       |
+| roll_no | int         | NO   | PRI | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student2 drop primary key;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student2
+    -> ^C
+mysql> desc student2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(50) | YES  |     | NULL    |       |
+| roll_no | int         | NO   |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table student2 add primary key(name);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(50) | NO   | PRI | NULL    |       |
+| roll_no | int         | NO   |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> rename table student2 to std;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc student2;
+ERROR 1146 (42S02): Table 'splcommand.student2' doesn't exist
+mysql> desc std;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(50) | NO   | PRI | NULL    |       |
+| roll_no | int         | NO   |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into std values('nit', 6, 'ameerpet');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from std;
++------+---------+----------+
+| name | roll_no | address  |
++------+---------+----------+
+| nit  |       6 | ameerpet |
++------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> truncate table std;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from std;
+Empty set (0.00 sec)
+
+mysql> desc std;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(50) | NO   | PRI | NULL    |       |
+| roll_no | int         | NO   |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> drop table std;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc std;
+ERROR 1146 (42S02): Table 'splcommand.std' doesn't exist
+mysql> use primary key;
+ERROR 1049 (42000): Unknown database 'primary'
+mysql> select user();
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> create user 'rohit'@'localhost' identified by 'ajay';
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> show grants for 'ajay'@'localhost';
+ERROR 1141 (42000): There is no such grant defined for user 'ajay' on host 'localhost'
+mysql> show grants for 'rohit'@'localhost';
++-------------------------------------------+
+| Grants for rohit@localhost                |
++-------------------------------------------+
+| GRANT USAGE ON *.* TO `rohit`@`localhost` |
++-------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> grant select on *,* to 'rohit'@'localhost';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',* to 'rohit'@'localhost'' at line 1
+mysql> grant select on *.* to 'rohit'@'localhost';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant insert on employees.student to 'rohit'@'localhost';
+ERROR 1146 (42S02): Table 'employees.student' doesn't exist
+mysql> grant insert on emp.student to 'rohit'@'localhost';
+ERROR 1146 (42S02): Table 'emp.student' doesn't exist
+mysql>
